@@ -1,23 +1,21 @@
 ---
-- name: yum | {{ item }}
+- name: Install pygpgme and yum-utils
   tags: linuxhq
-  yum:
-    name={{ item }}
-    state=latest
-    update_cache=yes
+  yum: name={{ item }}
+       state=latest
+       update_cache=yes
   register: linuxhq_yum
   with_items:
     - pygpgme
     - yum-utils
 
-- name: template | linuxhq.repo
+- name: Configure linuxhq.repo
   tags: linuxhq
-  template:
-    src=linuxhq.repo.j2
-    dest=/etc/yum.repos.d/linuxhq.repo
-    owner=root
-    group=root
-    mode=0644
+  template: src=linuxhq.repo.j2
+            dest=/etc/yum.repos.d/linuxhq.repo
+            owner=root
+            group=root
+            mode=0644
   when:
     - linuxhq_pkg is defined
     - linuxhq_yum|success 
