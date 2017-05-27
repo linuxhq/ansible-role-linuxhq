@@ -11,7 +11,7 @@
     - yum-utils
 
 - block:
-    - name: Acuiring and installing repository key
+    - name: Acquiring and installing repository key
       rpm_key:
         key: "https://packagecloud.io/linuxhq/{{ linuxhq_pkg }}/gpgkey"
         state: present
