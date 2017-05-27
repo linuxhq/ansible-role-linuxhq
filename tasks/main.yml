@@ -1,21 +1,24 @@
 ---
-- name: Install pygpgme and yum-utils
+- name: Ensure that the pygpgme and yum-utils packages are installed
   tags: linuxhq
-  yum: name={{ item }}
-       state=latest
-       update_cache=yes
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
   register: linuxhq_yum
   with_items:
     - pygpgme
     - yum-utils
 
-- name: Configure linuxhq.repo
+- name: Applying linuxhq repository configuration
   tags: linuxhq
-  template: src=linuxhq.repo.j2
-            dest=/etc/yum.repos.d/linuxhq.repo
-            owner=root
-            group=root
-            mode=0644
+  template:
+    src: linuxhq.repo.j2
+    dest: "/etc/yum.repos.d/linuxhq-{{ linuxhq_pkg }}.repo"
+    owner: root
+    group: root
+    mode: 0644
   when:
     - linuxhq_pkg is defined
     - linuxhq_yum|success 
+...

@@ -10,7 +10,18 @@ None
 
 ## Role Variables
 
-There are no default variables for this role.
+Available variables are listed below, along with their default values
+
+    linuxhq_repo_gpgcheck: True
+    linuxhq_gpgcheck: False
+    linuxhq_enabled: False
+    linuxhq_sslverify: True
+    linuxhq_sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+    linuxhq_source_repo_gpgcheck: True
+    linuxhq_source_gpgcheck: False
+    linuxhq_source_enabled: False
+    linuxhq_source_sslverify: True
+    linuxhq_sslcacert: /etc/pki/tls/certs/ca-bundle.crt
 
 ## Dependencies
 
