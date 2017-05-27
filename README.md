@@ -21,7 +21,7 @@ Available variables are listed below, along with their default values
     linuxhq_source_gpgcheck: False
     linuxhq_source_enabled: False
     linuxhq_source_sslverify: True
-    linuxhq_sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+    linuxhq_source_sslcacert: /etc/pki/tls/certs/ca-bundle.crt
 
 ## Dependencies
 
