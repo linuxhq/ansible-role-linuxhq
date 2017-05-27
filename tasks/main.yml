@@ -10,14 +10,20 @@
     - pygpgme
     - yum-utils
 
-- name: Applying linuxhq repository configuration
+- block:
+    - name: Acuiring and installing repository key
+      rpm_key:
+        key: "https://packagecloud.io/linuxhq/{{ linuxhq_pkg }}/gpgkey"
+        state: present
+
+    - name: Applying linuxhq repository configuration
+      template:
+        src: linuxhq.repo.j2
+        dest: "/etc/yum.repos.d/linuxhq-{{ linuxhq_pkg }}.repo"
+        owner: root
+        group: root
+        mode: 0644
   tags: linuxhq
-  template:
-    src: linuxhq.repo.j2
-    dest: "/etc/yum.repos.d/linuxhq-{{ linuxhq_pkg }}.repo"
-    owner: root
-    group: root
-    mode: 0644
   when:
     - linuxhq_pkg is defined
     - linuxhq_yum|success 
