@@ -1,17 +1,17 @@
 ---
 - name: Ensure that the pygpgme and yum-utils packages are installed
   tags: linuxhq
+  become: true
   yum:
     name: "{{ item }}"
     state: present
-    update_cache: yes
   register: linuxhq_yum
   with_items:
     - pygpgme
     - yum-utils
 
 - block:
-    - name: Acquiring and installing repository key
+    - name: Ensure that the linuxhq GPG keys are installed
       rpm_key:
         key: "https://packagecloud.io/linuxhq/{{ linuxhq_pkg }}/gpgkey"
         state: present
@@ -24,6 +24,7 @@
         group: root
         mode: 0644
   tags: linuxhq
+  become: true
   when:
     - linuxhq_pkg is defined
     - linuxhq_yum|success 

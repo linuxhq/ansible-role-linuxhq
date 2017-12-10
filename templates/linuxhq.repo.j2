@@ -5,8 +5,8 @@ repo_gpgcheck={{ '1' if linuxhq_repo_gpgcheck is defined and linuxhq_repo_gpgche
 gpgcheck={{ '1' if linuxhq_gpgcheck is defined and linuxhq_gpgcheck else '0' }}
 enabled={{ '1' if linuxhq_enabled is defined and linuxhq_enabled else '0' }}
 gpgkey=https://packagecloud.io/linuxhq/{{ linuxhq_pkg }}/gpgkey
-sslverify={{ '1' if linuxhq_sslverify is defined and linuxhq_repo_gpgcheck else '0' }}
-sslcacert={{ linuxhq_sslcacert if linuxhq_sslcacert is defined else '/etc/pki/tls/certs/ca-bundle.crt' }}
+sslverify={{ '1' if linuxhq_sslverify is defined and linuxhq_sslverify else '0' }}
+sslcacert={{ linuxhq_sslcacert }}
 
 [linuxhq-{{ linuxhq_pkg }}-source]
 name=linuxhq-{{ linuxhq_pkg }}-source
@@ -15,5 +15,5 @@ repo_gpgcheck={{ '1' if linuxhq_source_repo_gpgcheck is defined and linuxhq_sour
 gpgcheck={{ '1' if linuxhq_source_gpgcheck is defined and linuxhq_source_gpgcheck else '0' }}
 enabled={{ '1' if linuxhq_source_enabled is defined and linuxhq_source_enabled else '0' }}
 gpgkey=https://packagecloud.io/linuxhq/{{ linuxhq_pkg }}/gpgkey
-sslverify={{ '1' if linuxhq_sslverify is defined and linuxhq_repo_gpgcheck else '0' }}
-sslcacert={{ linuxhq_sslcacert if linuxhq_sslcacert is defined else '/etc/pki/tls/certs/ca-bundle.crt' }}
+sslverify={{ '1' if linuxhq_source_sslverify is defined and linuxhq_source_sslverify else '0' }}
+sslcacert={{ linuxhq_sslcacert }}
