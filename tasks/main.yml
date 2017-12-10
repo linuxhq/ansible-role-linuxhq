@@ -15,6 +15,14 @@
       rpm_key:
         key: "https://packagecloud.io/linuxhq/{{ linuxhq_pkg }}/gpgkey"
         state: present
+      register: linuxhq_rpm_key
+
+    - name: Make cache
+      command: |
+        yum -q makecache -y 
+            --disablerepo=*
+            --enablerepo=linuxhq-{{ linuxhq_pkg }}
+      when: linuxhq_rpm_key|changed
 
     - name: Applying linuxhq repository configuration
       template:
