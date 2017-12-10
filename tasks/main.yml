@@ -17,10 +17,10 @@
         state: present
       register: linuxhq_rpm_key
 
-    - name: Make cache
-      command: |
-        yum -q makecache -y 
-            --disablerepo=*
+    - name: Rebuilding cache for linuxhq-{{ linuxhq_pkg }} repository
+      shell: |
+        yum -y -q makecache \
+            --disablerepo=* \
             --enablerepo=linuxhq-{{ linuxhq_pkg }}
       when: linuxhq_rpm_key|changed
 
