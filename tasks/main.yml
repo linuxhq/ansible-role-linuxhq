@@ -1,4 +1,10 @@
 ---
+- name: Assert that variable prerequisites exist
+  tags: linuxhq
+  assert:
+    that:
+      - linuxhq_pkg is defined
+
 - name: Ensure that the pygpgme and yum-utils packages are installed
   tags: linuxhq
   become: true
@@ -10,30 +16,39 @@
     - pygpgme
     - yum-utils
 
-- block:
-    - name: Applying linuxhq repository configuration
-      template:
-        src: linuxhq.repo.j2
-        dest: "/etc/yum.repos.d/linuxhq-{{ linuxhq_pkg }}.repo"
-        owner: root
-        group: root
-        mode: 0644
-
-    - name: Ensure that the linuxhq GPG keys are installed
-      rpm_key:
-        key: "https://packagecloud.io/linuxhq/{{ linuxhq_pkg }}/gpgkey"
-        state: present
-      register: linuxhq_rpm_key
-
-    - name: Rebuilding cache for linuxhq-{{ linuxhq_pkg }} repository
-      shell: |
-        yum -y -q makecache \
-            --disablerepo=* \
-            --enablerepo=linuxhq-{{ linuxhq_pkg }}
-      when: linuxhq_rpm_key|changed
+- name: Attempting to overlay linuxhq-{{ linuxhq_pkg }} repository configuration
   tags: linuxhq
   become: true
+  template:
+    src: linuxhq.repo.j2
+    dest: "/etc/yum.repos.d/linuxhq-{{ linuxhq_pkg }}.repo"
+    owner: root
+    group: root
+    mode: 0644
+  register: linuxhq_template
   when:
-    - linuxhq_pkg is defined
+    - linuxhq_yum|success
+
+- name: Ensure that the linuxhq GPG keys are installed
+  tags: linuxhq
+  become: true
+  rpm_key:
+    key: "https://packagecloud.io/linuxhq/{{ linuxhq_pkg }}/gpgkey"
+    state: present
+  register: linuxhq_rpm_key
+  when:
+    - linuxhq_template|success
+    - linuxhq_yum|success
+
+- name: Rebuilding cache for linuxhq-{{ linuxhq_pkg }} repository
+  tags: linuxhq
+  become: true
+  shell: |
+    yum -y -q makecache \
+        --disablerepo=* \
+        --enablerepo=linuxhq-{{ linuxhq_pkg }}
+  when:
+    - linuxhq_rpm_key|success
+    - linuxhq_template|success
     - linuxhq_yum|success 
 ...

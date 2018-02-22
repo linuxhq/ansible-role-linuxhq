@@ -12,16 +12,16 @@ None
 
 Available variables are listed below, along with their default values
 
-    linuxhq_repo_gpgcheck: True
-    linuxhq_gpgcheck: True
-    linuxhq_enabled: False
-    linuxhq_sslverify: True
+    linuxhq_enabled: false
+    linuxhq_gpgcheck: false
+    linuxhq_repo_gpgcheck: true
     linuxhq_sslcacert: /etc/pki/tls/certs/ca-bundle.crt
-    linuxhq_source_repo_gpgcheck: True
-    linuxhq_source_gpgcheck: True
-    linuxhq_source_enabled: False
-    linuxhq_source_sslverify: True
+    linuxhq_sslverify: true
+    linuxhq_source_enabled: false
+    linuxhq_source_gpgcheck: false
+    linuxhq_source_repo_gpgcheck: true
     linuxhq_source_sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+    linuxhq_source_sslverify: true
 
 ## Dependencies
 

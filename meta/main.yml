@@ -13,7 +13,5 @@ galaxy_info:
         - 7
   galaxy_tags:
     - linuxhq
-    - packaging
-    - repository
-    - system
+    - yum
 ...
