@@ -27,7 +27,7 @@
     mode: 0644
   register: linuxhq_template
   when:
-    - linuxhq_yum|success
+    - linuxhq_yum is success
 
 - name: Ensure that the linuxhq GPG keys are installed
   tags: linuxhq
@@ -37,8 +37,8 @@
     state: present
   register: linuxhq_rpm_key
   when:
-    - linuxhq_template|success
-    - linuxhq_yum|success
+    - linuxhq_template is success
+    - linuxhq_yum is success
 
 - name: Rebuilding cache for linuxhq-{{ linuxhq_pkg }} repository
   tags: linuxhq
@@ -50,7 +50,7 @@
         --disablerepo=* \
         --enablerepo=linuxhq-{{ linuxhq_pkg }}
   when:
-    - linuxhq_rpm_key|success
-    - linuxhq_template|success
-    - linuxhq_yum|success 
+    - linuxhq_rpm_key is success
+    - linuxhq_template is success
+    - linuxhq_yum is success
 ...
