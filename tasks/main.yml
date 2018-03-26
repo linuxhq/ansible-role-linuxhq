@@ -43,6 +43,8 @@
 - name: Rebuilding cache for linuxhq-{{ linuxhq_pkg }} repository
   tags: linuxhq
   become: true
+  args:
+    warn: no
   shell: |
     yum -y -q makecache \
         --disablerepo=* \
