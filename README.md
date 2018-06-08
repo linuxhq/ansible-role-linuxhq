@@ -1,6 +1,8 @@
 # ansible-role-linuxhq
 
 [![Build Status](https://travis-ci.org/linuxhq/ansible-role-linuxhq.svg?branch=master)](https://travis-ci.org/linuxhq/ansible-role-linuxhq)
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-linuxhq-blue.svg?style=flat)](https://galaxy.ansible.com/linuxhq/linuxhq)
+[![License](https://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat)](COPYING)
 
 Installs a linuxhq package specific RPM repository.
 
